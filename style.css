@@ -1,18 +1,1 @@
-.post{
-  background:#1a1a1a;
-  padding:10px;
-  margin:10px;
-  border-radius:12px;
-}
 
-#feed{
-  scrollbar-width:thin;
-}
-
-#search{
-  width:95%;
-  padding:10px;
-  margin:10px;
-  border-radius:20px;
-  border:none;
-}
