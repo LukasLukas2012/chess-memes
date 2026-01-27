@@ -1,0 +1,17 @@
+window.searchPosts = async () => {
+  feed.innerHTML="";
+  lastDoc=null;
+
+  const text = search.value.toLowerCase();
+
+  const snap = await getDocs(collection(db,"posts"));
+  snap.forEach(d=>{
+    const p=d.data();
+    if(
+      p.text.toLowerCase().includes(text) ||
+      p.name.toLowerCase().includes(text)
+    ){
+      renderPost(p);
+    }
+  });
+};
