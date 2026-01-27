@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Cess Memes</title>
+  <style>
+    body{background:#111;color:#fff;font-family:Arial;text-align:center}
+    input,button{margin:5px;padding:8px}
+    img{max-width:300px;margin:10px}
+    iframe{width:300px;height:170px;margin:10px}
+    .hidden{display:none}
+  </style>
+</head>
+<body>
+
+<h1>Cess Memes 😈</h1>
+
+<div id="auth">
+  <h2>Register</h2>
+  <input id="regEmail" placeholder="Email">
+  <input id="regPass" type="password" placeholder="Password">
+  <button onclick="register()">Register</button>
+
+  <h2>Login</h2>
+  <input id="logEmail" placeholder="Email">
+  <input id="logPass" type="password" placeholder="Password">
+  <button onclick="login()">Login</button>
+</div>
+
+<div id="main" class="hidden">
+  <h2>Upload Meme</h2>
+  <input type="file" id="img">
+  <input id="yt" placeholder="YouTube Link">
+  <button onclick="upload()">Upload</button>
+  <button onclick="logout()">Logout</button>
+
+  <h2>Feed</h2>
+  <div id="feed"></div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+         sendEmailVerification, onAuthStateChanged, signOut } 
+from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+import { getFirestore, collection, addDoc, onSnapshot, serverTimestamp } 
+from "https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } 
+from "https://www.gstatic.com/firebasejs/10.7.0/firebase-storage.js";
+
+const firebaseConfig = {
+  apiKey: "DEIN_KEY",
+  authDomain: "DEIN_PROJEKT.firebaseapp.com",
+  projectId: "DEIN_PROJEKT",
+  storageBucket: "DEIN_PROJEKT.appspot.com",
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const storage = getStorage(app);
+
+window.register = async () => {
+  const u = await createUserWithEmailAndPassword(auth, regEmail.value, regPass.value);
+  await sendEmailVerification(u.user);
+  alert("Bestätigungs-Mail gesendet!");
+};
+
+window.login = async () => {
+  const u = await signInWithEmailAndPassword(auth, logEmail.value, logPass.value);
+  if (!u.user.emailVerified) alert("Bitte E-Mail bestätigen!");
+};
+
+window.logout = async () => signOut(auth);
+
+window.upload = async () => {
+  if (img.files[0]) {
+    const r = ref(storage, "memes/" + Date.now());
+    await uploadBytes(r, img.files[0]);
+    const url = await getDownloadURL(r);
+    await addDoc(collection(db,"memes"),{img:url,time:serverTimestamp()});
+  }
+  if (yt.value) {
+    await addDoc(collection(db,"memes"),{yt:yt.value,time:serverTimestamp()});
+  }
+};
+
+onAuthStateChanged(auth, u => {
+  authDiv.style.display = u ? "none" : "block";
+  main.classList.toggle("hidden", !u);
+});
+
+const authDiv = document.getElementById("auth");
+
+onSnapshot(collection(db,"memes"), snap => {
+  feed.innerHTML="";
+  snap.forEach(d=>{
+    const m=d.data();
+    if(m.img){const i=document.createElement("img");i.src=m.img;feed.appendChild(i)}
+    if(m.yt){const f=document.createElement("iframe");
+      f.src=m.yt.replace("watch?v=","embed/");feed.appendChild(f)}
+  });
+});
+</script>
+
+</body>
+</html>
