@@ -3,28 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deutscher Schachclub - Dark Edition</title>
+    <title>Quantum Chess Academy - Elite Training Platform</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap');
+
         :root {
-            --primary-color: #0a0a0a;
-            --secondary-color: #1a1a1a;
-            --accent-color: #00ff00;
-            --text-color: #00ff00;
-            --hover-color: #00cc00;
+            --bg-primary: #0a0e27;
+            --bg-secondary: #151b3d;
+            --bg-tertiary: #1a2149;
+            --accent-cyan: #00f0ff;
+            --accent-purple: #b844ff;
+            --accent-gold: #ffd700;
+            --text-primary: #e0e6ff;
+            --text-secondary: #8b92b8;
+            --success: #00ff88;
+            --danger: #ff2e63;
+            --shadow-glow: 0 0 40px rgba(0, 240, 255, 0.3);
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Courier New', monospace;
         }
 
         body {
-            background-color: var(--primary-color);
-            color: var(--text-color);
+            background: linear-gradient(135deg, var(--bg-primary) 0%, #0d1234 100%);
+            color: var(--text-primary);
+            font-family: 'Rajdhani', sans-serif;
             position: relative;
             overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Animated Background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.15;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--accent-cyan);
+            border-radius: 50%;
+            animation: float 20s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translate(100px, -100vh) scale(0.5); opacity: 0; }
         }
 
         /* Matrix Rain Effect */
@@ -35,57 +72,184 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 0;
-            opacity: 0.1;
+            z-index: 1;
+            opacity: 0.08;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 30px;
             position: relative;
-            z-index: 1;
+            z-index: 10;
         }
 
+        /* Header with Glassmorphism */
         header {
-            background-color: var(--secondary-color);
-            color: var(--text-color);
-            padding: 1rem;
+            background: rgba(21, 27, 61, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            padding: 2rem;
             text-align: center;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-            border: 1px solid var(--accent-color);
-            box-shadow: 0 0 10px var(--accent-color);
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow-glow);
+            position: relative;
+            overflow: hidden;
         }
 
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.1), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(0, 240, 255, 0.5);
+            margin-bottom: 0.5rem;
+            letter-spacing: 3px;
+        }
+
+        header p {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: rgba(21, 27, 61, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 240, 255, 0.3);
+            border-color: var(--accent-cyan);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Features Grid */
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 3rem;
         }
 
         .feature-card {
-            background: var(--secondary-color);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 5px var(--accent-color);
-            transition: all 0.3s ease;
-            border: 1px solid var(--accent-color);
+            background: rgba(21, 27, 61, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 240, 255, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
         }
 
         .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 15px var(--accent-color);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 60px rgba(0, 240, 255, 0.4);
+            border-color: var(--accent-cyan);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
 
         .feature-card h3 {
-            margin-bottom: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .feature-card p {
-            margin-bottom: 15px;
-            opacity: 0.8;
+            margin-bottom: 20px;
+            color: var(--text-secondary);
+            line-height: 1.6;
         }
 
         .feature-card ul {
@@ -94,44 +258,99 @@
         }
 
         .feature-card ul li {
-            margin: 8px 0;
-            padding-left: 15px;
+            margin: 12px 0;
+            padding: 10px 15px;
+            background: rgba(0, 240, 255, 0.05);
+            border-left: 3px solid var(--accent-cyan);
+            border-radius: 5px;
             position: relative;
-        }
-
-        .feature-card ul li:before {
-            content: "▸";
-            position: absolute;
-            left: 0;
-            color: var(--accent-color);
-        }
-
-        .feature-card a {
-            color: var(--text-color);
-            text-decoration: none;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
             cursor: pointer;
         }
 
+        .feature-card ul li:hover {
+            background: rgba(0, 240, 255, 0.15);
+            transform: translateX(10px);
+            border-left-color: var(--accent-purple);
+        }
+
+        .feature-card ul li::before {
+            content: "⚡";
+            margin-right: 10px;
+            color: var(--accent-cyan);
+        }
+
+        .feature-card a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
         .feature-card a:hover {
-            color: var(--hover-color);
-            text-shadow: 0 0 5px var(--hover-color);
+            color: var(--accent-cyan);
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.8);
+        }
+
+        /* Advanced Chessboard */
+        .chessboard-section {
+            background: rgba(21, 27, 61, 0.6);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 25px;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .board-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .game-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--accent-cyan);
+        }
+
+        .game-controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .status-message {
+            text-align: center;
+            font-size: 1.3rem;
+            margin: 20px 0;
+            min-height: 30px;
+            color: var(--accent-cyan);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
         }
 
         .chessboard-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 2rem 0;
+            padding: 20px;
         }
 
         .chessboard {
             width: 100%;
-            max-width: 400px;
+            max-width: 600px;
             display: grid;
             grid-template-columns: repeat(8, 1fr);
-            border: 2px solid var(--accent-color);
-            box-shadow: 0 0 15px var(--accent-color);
+            border: 3px solid var(--accent-cyan);
+            border-radius: 10px;
+            box-shadow: 0 0 50px rgba(0, 240, 255, 0.4),
+                        inset 0 0 30px rgba(0, 0, 0, 0.5);
+            position: relative;
         }
 
         .square {
@@ -139,201 +358,515 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
-            color: var(--accent-color);
-            text-shadow: 0 0 5px var(--accent-color);
+            font-size: 3rem;
             cursor: pointer;
             transition: all 0.2s ease;
+            position: relative;
         }
 
-        .square:hover {
-            background-color: rgba(0, 255, 0, 0.1) !important;
+        .square::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0, 240, 255, 0.3) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .square:hover::before {
+            opacity: 1;
         }
 
         .white {
-            background-color: #1a1a1a;
+            background: linear-gradient(135deg, #2a3b5c 0%, #1e2d4a 100%);
         }
 
         .black {
-            background-color: #000000;
+            background: linear-gradient(135deg, #0f1729 0%, #080d1a 100%);
+        }
+
+        .square:hover {
+            box-shadow: inset 0 0 20px rgba(0, 240, 255, 0.5);
+            transform: scale(0.95);
         }
 
         .selected {
-            background-color: rgba(0, 255, 0, 0.3) !important;
+            background: radial-gradient(circle, rgba(0, 240, 255, 0.4) 0%, transparent 70%) !important;
+            box-shadow: 0 0 20px var(--accent-cyan) !important;
+            animation: glow 1s infinite alternate;
         }
 
+        @keyframes glow {
+            from { box-shadow: 0 0 20px var(--accent-cyan); }
+            to { box-shadow: 0 0 40px var(--accent-cyan); }
+        }
+
+        .valid-move {
+            position: relative;
+        }
+
+        .valid-move::after {
+            content: '●';
+            position: absolute;
+            color: var(--success);
+            font-size: 1.5rem;
+            opacity: 0.6;
+        }
+
+        /* Advanced Buttons */
         .btn {
-            background-color: var(--secondary-color);
-            color: var(--text-color);
-            padding: 10px 20px;
-            border: 1px solid var(--accent-color);
-            border-radius: 5px;
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.2), rgba(184, 68, 255, 0.2));
+            color: var(--text-primary);
+            padding: 12px 30px;
+            border: 2px solid var(--accent-cyan);
+            border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
             text-decoration: none;
             display: inline-block;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(0, 240, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .btn:hover {
-            background-color: var(--accent-color);
-            color: var(--primary-color);
-            box-shadow: 0 0 10px var(--accent-color);
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.4), rgba(184, 68, 255, 0.4));
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.6);
+            transform: translateY(-3px);
+            border-color: var(--accent-purple);
         }
 
+        .btn-secondary {
+            border-color: var(--accent-purple);
+            background: linear-gradient(135deg, rgba(184, 68, 255, 0.2), rgba(255, 215, 0, 0.2));
+        }
+
+        .btn-danger {
+            border-color: var(--danger);
+            background: linear-gradient(135deg, rgba(255, 46, 99, 0.2), rgba(255, 107, 107, 0.2));
+        }
+
+        /* Resources Section */
         .chess-resources {
-            background: var(--secondary-color);
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 2rem;
-            border: 1px solid var(--accent-color);
-            box-shadow: 0 0 10px var(--accent-color);
+            background: rgba(21, 27, 61, 0.6);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 25px;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            box-shadow: var(--shadow-glow);
         }
 
         .chess-resources h2 {
-            margin-bottom: 15px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 25px;
+            color: var(--accent-cyan);
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 3px;
         }
 
-        .chess-resources ul {
-            list-style-type: none;
-            padding: 0;
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
         }
 
-        .chess-resources li {
-            margin: 10px 0;
-            padding: 10px;
-            background: var(--primary-color);
-            border-radius: 5px;
-            border: 1px solid var(--accent-color);
-        }
-
-        .chess-resources a {
-            color: var(--text-color);
-            text-decoration: none;
+        .resource-item {
+            background: rgba(10, 14, 39, 0.5);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 240, 255, 0.2);
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
-        .chess-resources a:hover {
-            color: var(--hover-color);
-            text-shadow: 0 0 5px var(--hover-color);
+        .resource-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 240, 255, 0.3);
+            border-color: var(--accent-purple);
         }
 
-        .game-controls {
-            text-align: center;
-            margin: 20px 0;
+        .resource-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
         }
 
-        .game-controls button {
-            margin: 0 10px;
+        .resource-item h4 {
+            color: var(--accent-cyan);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
         }
 
-        .status-message {
-            text-align: center;
-            margin: 15px 0;
-            font-size: 18px;
-            min-height: 25px;
+        .resource-item p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
         }
 
-        /* Modal Styles */
+        /* Modal Redesign */
         .modal {
             display: none;
             position: fixed;
-            z-index: 1000;
+            z-index: 2000;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.8);
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .modal-content {
-            background-color: var(--secondary-color);
-            margin: 15% auto;
-            padding: 20px;
-            border: 2px solid var(--accent-color);
-            border-radius: 10px;
-            width: 80%;
-            max-width: 500px;
-            box-shadow: 0 0 20px var(--accent-color);
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            margin: 5% auto;
+            padding: 40px;
+            border: 2px solid var(--accent-cyan);
+            border-radius: 25px;
+            width: 90%;
+            max-width: 700px;
+            box-shadow: 0 0 100px rgba(0, 240, 255, 0.5);
+            animation: slideDown 0.4s;
+            position: relative;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple), var(--accent-gold));
+            border-radius: 25px 25px 0 0;
         }
 
         .close {
-            color: var(--text-color);
+            color: var(--accent-cyan);
             float: right;
-            font-size: 28px;
+            font-size: 35px;
             font-weight: bold;
             cursor: pointer;
+            transition: all 0.3s;
+            line-height: 1;
         }
 
         .close:hover {
-            color: var(--hover-color);
+            color: var(--danger);
+            transform: rotate(90deg);
+            text-shadow: 0 0 20px var(--danger);
         }
 
+        #modalTitle {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--accent-cyan);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        #modalBody {
+            color: var(--text-primary);
+            line-height: 1.8;
+        }
+
+        #modalBody h3 {
+            color: var(--accent-purple);
+            margin: 20px 0 10px;
+            font-size: 1.5rem;
+        }
+
+        #modalBody p {
+            margin: 10px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        #modalBody p::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent-cyan);
+        }
+
+        /* Leaderboard */
+        .leaderboard {
+            background: rgba(10, 14, 39, 0.5);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin: 10px 0;
+            background: rgba(0, 240, 255, 0.05);
+            border-left: 3px solid var(--accent-cyan);
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .leaderboard-item:hover {
+            background: rgba(0, 240, 255, 0.15);
+            transform: translateX(10px);
+        }
+
+        .rank {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+            font-weight: 700;
+            min-width: 50px;
+        }
+
+        .player-name {
+            flex-grow: 1;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+        }
+
+        .elo-rating {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-bar {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .chessboard {
+                max-width: 400px;
+            }
+
+            .square {
+                font-size: 2rem;
+            }
+
+            .game-controls {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(0, 240, 255, 0.3);
+            border-top-color: var(--accent-cyan);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Notification Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+            color: var(--text-primary);
+            padding: 20px 30px;
+            border-radius: 15px;
+            border: 1px solid var(--accent-cyan);
+            box-shadow: 0 10px 40px rgba(0, 240, 255, 0.4);
+            z-index: 3000;
+            animation: slideInRight 0.5s;
+            display: none;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(500px); }
+            to { transform: translateX(0); }
+        }
+
+        .toast.show {
+            display: block;
+        }
     </style>
 </head>
 <body>
     <canvas id="matrix-bg"></canvas>
+    
+    <!-- Animated Particles -->
+    <div class="particles" id="particles"></div>
+
     <div class="container">
+        <!-- Header -->
         <header>
-            <h1>Deutscher Schachclub</h1>
-            <p>Willkommen auf unserer Plattform zum Schach lernen und spielen</p>
+            <h1>⚡ QUANTUM CHESS ACADEMY ⚡</h1>
+            <p>Elite Training Platform für Schachmeister der Zukunft</p>
         </header>
 
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-card">
+                <div class="stat-value">1847</div>
+                <div class="stat-label">ELO Rating</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">156</div>
+                <div class="stat-label">Siege</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">23</div>
+                <div class="stat-label">Aktive Turniere</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">89%</div>
+                <div class="stat-label">Gewinnrate</div>
+            </div>
+        </div>
+
+        <!-- Features Grid -->
         <div class="features-grid">
             <div class="feature-card">
-                <h3>Schach lernen</h3>
-                <p>Interaktive Lektionen für Anfänger und Fortgeschrittene</p>
+                <div class="feature-icon">🎓</div>
+                <h3>Training Academy</h3>
+                <p>Hochmoderne KI-gestützte Lernmethoden für maximalen Fortschritt</p>
                 <ul>
-                    <li><a onclick="showLesson('grundregeln')">Grundregeln lernen</a></li>
-                    <li><a onclick="showLesson('strategien')">Fortgeschrittene Strategien</a></li>
-                    <li><a onclick="showLesson('taktik')">Taktikübungen</a></li>
+                    <li><a onclick="showLesson('grundregeln')">Quantum Basics - Fundamentale Prinzipien</a></li>
+                    <li><a onclick="showLesson('strategien')">Master Strategien - Großmeister Techniken</a></li>
+                    <li><a onclick="showLesson('taktik')">Taktik-Labor - 10.000+ Rätsel</a></li>
+                    <li><a onclick="showLesson('eröffnungen')">Eröffnungs-Datenbank - 500+ Varianten</a></li>
                 </ul>
             </div>
 
             <div class="feature-card">
-                <h3>Tägliche Herausforderungen</h3>
-                <p>Löse Aufgaben und verbessere dein Level</p>
+                <div class="feature-icon">⚔️</div>
+                <h3>Elite Challenges</h3>
+                <p>Tägliche Herausforderungen und Wettkämpfe gegen Weltklasse-Gegner</p>
                 <ul>
-                    <li><a onclick="startDailyPuzzle()">Tägliche Schachaufgabe</a></li>
-                    <li><a onclick="showTournaments()">Turniere anzeigen</a></li>
-                    <li><a onclick="showStats()">Deine Statistiken</a></li>
+                    <li><a onclick="startDailyPuzzle()">Daily Grandmaster Puzzle</a></li>
+                    <li><a onclick="showTournaments()">Championship Turniere</a></li>
+                    <li><a onclick="startSpeedChess()">Blitz Arena - Live Matches</a></li>
+                    <li><a onclick="showStats()">Performance Analytics</a></li>
                 </ul>
             </div>
 
             <div class="feature-card">
-                <h3>Club-Community</h3>
-                <p>Vernetze dich mit anderen Spielern</p>
+                <div class="feature-icon">🌐</div>
+                <h3>Global Network</h3>
+                <p>Vernetze dich mit Elite-Spielern weltweit und teile Strategien</p>
                 <ul>
-                    <li><a onclick="showForum()">Diskussionsforum</a></li>
-                    <li><a onclick="showPlayers()">Spieler anzeigen</a></li>
-                    <li><a onclick="createTournament()">Turnier erstellen</a></li>
+                    <li><a onclick="showForum()">Pro Forum - Strategie Diskussionen</a></li>
+                    <li><a onclick="showPlayers()">1,247 Spieler Online</a></li>
+                    <li><a onclick="createTournament()">Turnier Manager</a></li>
+                    <li><a onclick="showLeaderboard()">Global Leaderboard</a></li>
                 </ul>
             </div>
         </div>
 
-        <div class="status-message" id="statusMessage"></div>
+        <!-- Chessboard Section -->
+        <div class="chessboard-section">
+            <div class="board-header">
+                <div class="game-title">🎮 LIVE CHESS SIMULATOR</div>
+                <div class="game-controls">
+                    <button class="btn" onclick="resetBoard()">⟳ Neues Spiel</button>
+                    <button class="btn btn-secondary" onclick="undoMove()">↶ Zurück</button>
+                    <button class="btn btn-secondary" onclick="rotateBoard()">⟲ Drehen</button>
+                    <button class="btn btn-danger" onclick="aiMove()">🤖 KI Zug</button>
+                </div>
+            </div>
 
-        <div class="game-controls">
-            <button class="btn" onclick="resetBoard()">Neues Spiel</button>
-            <button class="btn" onclick="undoMove()">Zug zurück</button>
-            <button class="btn" onclick="rotateBoard()">Brett drehen</button>
+            <div class="status-message" id="statusMessage">Bereit zum Start - Weiß am Zug</div>
+
+            <div class="chessboard-container">
+                <div class="chessboard" id="chessboard"></div>
+            </div>
         </div>
 
-        <div class="chessboard-container">
-            <div class="chessboard" id="chessboard"></div>
-        </div>
-
+        <!-- Resources Section -->
         <div class="chess-resources">
-            <h2>Lernmaterialien</h2>
-            <ul>
-                <li>
-                    <a class="btn" onclick="openExternalResource('chess.com')">
-                        Besuche Chess.com
-                    </a>
-                </li>
-                <li><a onclick="showVideos()">Video-Tutorials für Anfänger</a></li>
-                <li><a onclick="showBooks()">Digitale Schachbücher</a></li>
-                <li><a onclick="showDailyExercise()">Tägliche Taktikübungen</a></li>
-            </ul>
+            <h2>📚 Premium Ressourcen</h2>
+            <div class="resources-grid">
+                <div class="resource-item" onclick="showVideos()">
+                    <span class="resource-icon">📹</span>
+                    <h4>Master Class Videos</h4>
+                    <p>Exklusive Lektionen von Großmeistern</p>
+                </div>
+                <div class="resource-item" onclick="showBooks()">
+                    <span class="resource-icon">📖</span>
+                    <h4>Digital Library</h4>
+                    <p>500+ Schachbücher & PDFs</p>
+                </div>
+                <div class="resource-item" onclick="showDailyExercise()">
+                    <span class="resource-icon">💪</span>
+                    <h4>Daily Training</h4>
+                    <p>Personalisierte Übungspläne</p>
+                </div>
+                <div class="resource-item" onclick="showAnalysis()">
+                    <span class="resource-icon">📊</span>
+                    <h4>Game Analysis</h4>
+                    <p>KI-gestützte Partieanalyse</p>
+                </div>
+                <div class="resource-item" onclick="openExternalResource('chess.com')">
+                    <span class="resource-icon">🌐</span>
+                    <h4>Chess.com</h4>
+                    <p>Externe Plattform besuchen</p>
+                </div>
+                <div class="resource-item" onclick="showCoaching()">
+                    <span class="resource-icon">👨‍🏫</span>
+                    <h4>Personal Coaching</h4>
+                    <p>1-on-1 Training buchen</p>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -346,15 +879,24 @@
         </div>
     </div>
 
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
     <script>
-        // Globale Variablen
+        // ========== GLOBAL VARIABLES ==========
         let gameBoard = [];
         let selectedSquare = null;
         let moveHistory = [];
         let isWhiteTurn = true;
         let boardRotated = false;
+        let playerStats = {
+            wins: 156,
+            losses: 45,
+            draws: 23,
+            elo: 1847
+        };
 
-        // Schachbrett initialisieren
+        // ========== BOARD MANAGEMENT ==========
         function initializeBoard() {
             gameBoard = [
                 ['♜','♞','♝','♛','♚','♝','♞','♜'],
@@ -367,9 +909,9 @@
                 ['♖','♘','♗','♕','♔','♗','♘','♖']
             ];
             renderBoard();
+            playSound('start');
         }
 
-        // Brett rendern
         function renderBoard() {
             const board = document.getElementById('chessboard');
             board.innerHTML = '';
@@ -393,19 +935,19 @@
             }
         }
 
-        // Feldklick behandeln
         function handleSquareClick(row, col) {
             if (selectedSquare === null) {
                 if (gameBoard[row][col] !== '') {
                     selectedSquare = {row, col};
                     highlightSquare(row, col);
-                    setStatus(`Figur ausgewählt. Wähle Zielfeld.`);
+                    setStatus(`✨ Figur gewählt - Wähle Zielposition`);
+                    playSound('select');
                 }
             } else {
                 if (selectedSquare.row === row && selectedSquare.col === col) {
                     selectedSquare = null;
                     renderBoard();
-                    setStatus('');
+                    setStatus(`${isWhiteTurn ? '⚪ Weiß' : '⚫ Schwarz'} am Zug`);
                 } else {
                     movePiece(selectedSquare.row, selectedSquare.col, row, col);
                     selectedSquare = null;
@@ -413,7 +955,6 @@
             }
         }
 
-        // Feld hervorheben
         function highlightSquare(row, col) {
             const squares = document.querySelectorAll('.square');
             squares.forEach(sq => {
@@ -423,15 +964,15 @@
             });
         }
 
-        // Figur bewegen
         function movePiece(fromRow, fromCol, toRow, toCol) {
             const piece = gameBoard[fromRow][fromCol];
+            const captured = gameBoard[toRow][toCol];
             
             moveHistory.push({
                 from: {row: fromRow, col: fromCol},
                 to: {row: toRow, col: toCol},
                 piece: piece,
-                captured: gameBoard[toRow][toCol]
+                captured: captured
             });
             
             gameBoard[toRow][toCol] = piece;
@@ -439,13 +980,23 @@
             
             isWhiteTurn = !isWhiteTurn;
             renderBoard();
-            setStatus(`${isWhiteTurn ? 'Weiß' : 'Schwarz'} ist am Zug`);
+            
+            if (captured) {
+                playSound('capture');
+                showToast('🎯 Figur geschlagen!');
+            } else {
+                playSound('move');
+            }
+            
+            setStatus(`${isWhiteTurn ? '⚪ Weiß' : '⚫ Schwarz'} am Zug`);
+            
+            // Update stats
+            updateStats();
         }
 
-        // Zug rückgängig machen
         function undoMove() {
             if (moveHistory.length === 0) {
-                setStatus('Keine Züge zum Rückgängigmachen!');
+                showToast('⚠️ Keine Züge zum Rückgängigmachen!');
                 return;
             }
             
@@ -455,33 +1006,542 @@
             
             isWhiteTurn = !isWhiteTurn;
             renderBoard();
-            setStatus('Zug rückgängig gemacht');
+            setStatus('↶ Zug rückgängig gemacht');
+            playSound('undo');
         }
 
-        // Brett zurücksetzen
         function resetBoard() {
-            if (confirm('Möchtest du wirklich ein neues Spiel starten?')) {
+            if (confirm('🎮 Neues Spiel starten?')) {
                 moveHistory = [];
                 selectedSquare = null;
                 isWhiteTurn = true;
                 initializeBoard();
-                setStatus('Neues Spiel gestartet! Weiß beginnt.');
+                setStatus('🎯 Neues Spiel gestartet - Weiß beginnt');
+                showToast('✨ Neues Spiel initialisiert!');
             }
         }
 
-        // Brett drehen
         function rotateBoard() {
             boardRotated = !boardRotated;
             renderBoard();
-            setStatus('Brett gedreht');
+            setStatus('⟲ Brett gedreht');
+            playSound('rotate');
         }
 
-        // Status-Nachricht setzen
+        function aiMove() {
+            // Simple AI: Random valid move
+            const pieces = [];
+            for (let i = 0; i < 8; i++) {
+                for (let j = 0; j < 8; j++) {
+                    if (gameBoard[i][j] !== '') {
+                        pieces.push({row: i, col: j});
+                    }
+                }
+            }
+            
+            if (pieces.length > 0) {
+                const randomPiece = pieces[Math.floor(Math.random() * pieces.length)];
+                const validMoves = getValidMoves(randomPiece.row, randomPiece.col);
+                
+                if (validMoves.length > 0) {
+                    const randomMove = validMoves[Math.floor(Math.random() * validMoves.length)];
+                    movePiece(randomPiece.row, randomPiece.col, randomMove.row, randomMove.col);
+                    showToast('🤖 KI hat gezogen!');
+                }
+            }
+        }
+
+        function getValidMoves(row, col) {
+            const moves = [];
+            // Simplified: just return empty squares
+            for (let i = 0; i < 8; i++) {
+                for (let j = 0; j < 8; j++) {
+                    if (gameBoard[i][j] === '' && Math.abs(i - row) <= 2 && Math.abs(j - col) <= 2) {
+                        moves.push({row: i, col: j});
+                    }
+                }
+            }
+            return moves;
+        }
+
+        // ========== UI FUNCTIONS ==========
         function setStatus(message) {
             document.getElementById('statusMessage').textContent = message;
         }
 
-        // Matrix Rain Effekt
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        function showModal(title, content) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalBody').innerHTML = content;
+            document.getElementById('infoModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('infoModal').style.display = 'none';
+        }
+
+        // ========== SOUND EFFECTS ==========
+        function playSound(type) {
+            // Simulate sound with console (replace with actual audio later)
+            const sounds = {
+                'move': '♪ Zug',
+                'capture': '♪ Schlagen',
+                'select': '♪ Auswahl',
+                'start': '♪ Start',
+                'undo': '♪ Zurück',
+                'rotate': '♪ Drehen'
+            };
+            console.log(sounds[type] || '♪ Sound');
+        }
+
+        // ========== LESSONS & CONTENT ==========
+        function showLesson(type) {
+            const lessons = {
+                'grundregeln': `
+                    <h3>⚡ Quantum Basics - Fundamentale Prinzipien</h3>
+                    <div class="leaderboard">
+                        <p>🎯 <strong>Regel 1:</strong> Kontrolliere das Zentrum (d4, e4, d5, e5)</p>
+                        <p>🎯 <strong>Regel 2:</strong> Entwickle Figuren schnell und effizient</p>
+                        <p>🎯 <strong>Regel 3:</strong> Schütze deinen König durch Rochade</p>
+                        <p>🎯 <strong>Regel 4:</strong> Jede Figur hat ihre optimale Position</p>
+                        <p>🎯 <strong>Regel 5:</strong> Plane mindestens 3 Züge im Voraus</p>
+                    </div>
+                    <p><em>💡 Tipp: Verstehe die Grundprinzipien bevor du komplexe Taktiken lernst!</em></p>
+                `,
+                'strategien': `
+                    <h3>👑 Master Strategien - Großmeister Techniken</h3>
+                    <div class="leaderboard">
+                        <p>⚔️ <strong>Gabelung:</strong> Greife zwei Figuren gleichzeitig an</p>
+                        <p>⚔️ <strong>Fesselung:</strong> Immobilisiere gegnerische Figuren</p>
+                        <p>⚔️ <strong>Spieß:</strong> Zwinge wertvollere Figur zum Ausweichen</p>
+                        <p>⚔️ <strong>Bauernketten:</strong> Kontrolle durch verbundene Bauern</p>
+                        <p>⚔️ <strong>Raumvorteil:</strong> Dominiere mehr Felder als der Gegner</p>
+                    </div>
+                    <p><em>💎 Meisterschaft: Kombiniere mehrere Taktiken für maximale Wirkung!</em></p>
+                `,
+                'taktik': `
+                    <h3>🧩 Taktik-Labor - 10.000+ Rätsel</h3>
+                    <div class="leaderboard">
+                        <p>🎮 <strong>Level 1:</strong> Anfänger (800-1200 ELO) - 2,450 Rätsel</p>
+                        <p>🎮 <strong>Level 2:</strong> Fortgeschritten (1200-1600) - 3,200 Rätsel</p>
+                        <p>🎮 <strong>Level 3:</strong> Expert (1600-2000) - 2,850 Rätsel</p>
+                        <p>🎮 <strong>Level 4:</strong> Meister (2000-2400) - 1,300 Rätsel</p>
+                        <p>🎮 <strong>Level 5:</strong> Großmeister (2400+) - 500 Rätsel</p>
+                    </div>
+                    <button class="btn" onclick="closeModal(); startDailyPuzzle();">Jetzt starten!</button>
+                `,
+                'eröffnungen': `
+                    <h3>📚 Eröffnungs-Datenbank - 500+ Varianten</h3>
+                    <div class="leaderboard">
+                        <p>♔ <strong>Italienisch:</strong> 1.e4 e5 2.Nf3 Nc6 3.Bc4</p>
+                        <p>♔ <strong>Spanisch:</strong> 1.e4 e5 2.Nf3 Nc6 3.Bb5</p>
+                        <p>♔ <strong>Sizilianisch:</strong> 1.e4 c5 (aggressivste Verteidigung)</p>
+                        <p>♔ <strong>Französisch:</strong> 1.e4 e6 (solide Struktur)</p>
+                        <p>♔ <strong>Damengambit:</strong> 1.d4 d5 2.c4 (klassisch)</p>
+                    </div>
+                    <p><em>🎯 Experten-Tipp: Meistere 2-3 Eröffnungen perfekt statt viele oberflächlich!</em></p>
+                `
+            };
+            showModal('Training Academy', lessons[type] || 'Lektion wird geladen...');
+            playSound('start');
+        }
+
+        function startDailyPuzzle() {
+            showModal('🏆 Grandmaster Puzzle des Tages', `
+                <h3>Matt in 3 Zügen - Finde die Meisterhafte Lösung!</h3>
+                <div style="text-align:center; font-size:50px; margin:30px 0; background:rgba(0,0,0,0.3); padding:20px; border-radius:15px;">
+                    ♖ _ _ _ ♚ _ _ ♜<br>
+                    _ _ _ _ _ ♟ ♟ ♟<br>
+                    _ ♙ _ _ _ _ _ _<br>
+                    _ _ _ ♕ ♙ _ _ _<br>
+                </div>
+                <div class="leaderboard">
+                    <p>🎯 <strong>Schwierigkeit:</strong> Großmeister (2400+ ELO)</p>
+                    <p>⏱️ <strong>Zeit-Limit:</strong> 5 Minuten</p>
+                    <p>💎 <strong>Belohnung:</strong> +50 ELO Punkte</p>
+                </div>
+                <p><em>💡 Hinweis: Die Dame und der Turm bilden eine tödliche Kombination...</em></p>
+                <br>
+                <button class="btn" onclick="alert('⚡ Lösung: 1. Qh5+ Kg8 2. Qh7+ Kf8 3. Qh8# Matt!')">Lösung anzeigen</button>
+            `);
+        }
+
+        function showTournaments() {
+            showModal('🏆 Championship Turniere', `
+                <h3>Aktive Elite-Turniere</h3>
+                <div class="leaderboard">
+                    <div class="leaderboard-item">
+                        <span>🏆</span>
+                        <span><strong>World Championship Qualifier</strong><br>Preisgeld: $10,000</span>
+                        <button class="btn">Teilnehmen</button>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span>⚡</span>
+                        <span><strong>Blitz Masters Arena</strong><br>300 Spieler aktiv</span>
+                        <button class="btn">Join</button>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span>👑</span>
+                        <span><strong>Grandmaster Invitational</strong><br>Nur 2200+ ELO</span>
+                        <button class="btn btn-secondary">Gesperrt</button>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span>🎯</span>
+                        <span><strong>Weekend Warrior Cup</strong><br>Samstag 14:00 CET</span>
+                        <button class="btn">Anmelden</button>
+                    </div>
+                </div>
+            `);
+        }
+
+        function startSpeedChess() {
+            showToast('⚡ Suche nach Gegner... Blitz Match startet in 10 Sekunden!');
+            setTimeout(() => {
+                showModal('⚡ BLITZ ARENA', `
+                    <h3>Gegner gefunden!</h3>
+                    <div class="leaderboard">
+                        <div class="leaderboard-item">
+                            <span>⚪</span>
+                            <span><strong>Du</strong><br>ELO: 1847</span>
+                            <span class="elo-rating">●●●●○</span>
+                        </div>
+                        <div class="leaderboard-item">
+                            <span>⚫</span>
+                            <span><strong>SpeedDemon_2K</strong><br>ELO: 1923</span>
+                            <span class="elo-rating">●●●●●</span>
+                        </div>
+                    </div>
+                    <p style="text-align:center; margin:20px 0; font-size:1.5rem;">
+                        ⏱️ <strong>3 Minuten + 2 Sekunden pro Zug</strong>
+                    </p>
+                    <button class="btn" onclick="closeModal(); showToast('🎮 Match gestartet!')">Match starten!</button>
+                `);
+            }, 2000);
+        }
+
+        function showStats() {
+            showModal('📊 Performance Analytics', `
+                <h3>Deine Statistiken</h3>
+                <div class="leaderboard">
+                    <div class="leaderboard-item">
+                        <span>🏆</span>
+                        <span>Siege</span>
+                        <span class="elo-rating">${playerStats.wins}</span>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span>❌</span>
+                        <span>Niederlagen</span>
+                        <span class="elo-rating">${playerStats.losses}</span>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span>🤝</span>
+                        <span>Remis</span>
+                        <span class="elo-rating">${playerStats.draws}</span>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span>⭐</span>
+                        <span>Aktuelles ELO</span>
+                        <span class="elo-rating">${playerStats.elo}</span>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span>🔥</span>
+                        <span>Längste Siegesserie</span>
+                        <span class="elo-rating">12 Spiele</span>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span>📈</span>
+                        <span>Gewinnrate</span>
+                        <span class="elo-rating">69.8%</span>
+                    </div>
+                </div>
+                <h3 style="margin-top:20px;">Letzte Partien</h3>
+                <div class="leaderboard">
+                    <p>✅ Sieg vs. ChessMaster99 (1802 ELO) +18</p>
+                    <p>✅ Sieg vs. TacticalKing (1834 ELO) +20</p>
+                    <p>❌ Niederlage vs. GrandmasterX (2156 ELO) -12</p>
+                    <p>🤝 Remis vs. StrategyPro (1891 ELO) +5</p>
+                    <p>✅ Sieg vs. BlitzQueen (1776 ELO) +16</p>
+                </div>
+            `);
+        }
+
+        function showForum() {
+            showModal('💬 Pro Forum - Strategie Diskussionen', `
+                <h3>Trending Topics</h3>
+                <div class="leaderboard">
+                    <div class="leaderboard-item">
+                        <span>🔥</span>
+                        <span><strong>"Sizilianische Verteidigung - Najdorf Variante"</strong><br>127 Antworten · 2.3k Views</span>
+                        <button class="btn">Öffnen</button>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span>💎</span>
+                        <span><strong>"Endspiel: Turm + Bauer vs. Turm"</strong><br>89 Antworten · 1.8k Views</span>
+                        <button class="btn">Öffnen</button>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span>⚡</span>
+                        <span><strong>"Blitz Chess Strategien für 2024"</strong><br>203 Antworten · 4.1k Views</span>
+                        <button class="btn">Öffnen</button>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span>🎯</span>
+                        <span><strong>"Wie komme ich von 1800 auf 2000 ELO?"</strong><br>156 Antworten · 3.2k Views</span>
+                        <button class="btn">Öffnen</button>
+                    </div>
+                </div>
+            `);
+        }
+
+        function showPlayers() {
+            showModal('🌐 Online Spieler (1,247 aktiv)', `
+                <h3>Elite Spieler</h3>
+                <div class="leaderboard">
+                    <div class="leaderboard-item">
+                        <span class="rank">#1</span>
+                        <span class="player-name">QuantumGM_Elite</span>
+                        <span class="elo-rating">2847</span>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span class="rank">#2</span>
+                        <span class="player-name">TacticalGenius_Pro</span>
+                        <span class="elo-rating">2723</span>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span class="rank">#3</span>
+                        <span class="player-name">SpeedDemon_2K</span>
+                        <span class="elo-rating">2698</span>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span class="rank">#4</span>
+                        <span class="player-name">StrategicMind</span>
+                        <span class="elo-rating">2645</span>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span class="rank">#5</span>
+                        <span class="player-name">BlitzMaster_X</span>
+                        <span class="elo-rating">2589</span>
+                    </div>
+                </div>
+                <p style="text-align:center; margin-top:20px;">
+                    <button class="btn" onclick="showToast('🎮 Challenge-Anfrage gesendet!')">Challenge senden</button>
+                </p>
+            `);
+        }
+
+        function showLeaderboard() {
+            showModal('🏆 Global Leaderboard - Top 100', `
+                <h3>World Rankings</h3>
+                <div class="leaderboard">
+                    <div class="leaderboard-item">
+                        <span class="rank">🥇</span>
+                        <span class="player-name">Magnus_Carlsen_Official</span>
+                        <span class="elo-rating">2882</span>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span class="rank">🥈</span>
+                        <span class="player-name">Hikaru_Nakamura</span>
+                        <span class="elo-rating">2871</span>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span class="rank">🥉</span>
+                        <span class="player-name">QuantumGM_Elite</span>
+                        <span class="elo-rating">2847</span>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span class="rank">#4</span>
+                        <span class="player-name">FabianoCaruana</span>
+                        <span class="elo-rating">2834</span>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span class="rank">#5</span>
+                        <span class="player-name">IanNepomniachtchi</span>
+                        <span class="elo-rating">2812</span>
+                    </div>
+                    <div class="leaderboard-item" style="border-left-color: var(--accent-gold);">
+                        <span class="rank">#247</span>
+                        <span class="player-name">⭐ Du (Player_${Math.floor(Math.random()*9999)})</span>
+                        <span class="elo-rating">${playerStats.elo}</span>
+                    </div>
+                </div>
+            `);
+        }
+
+        function createTournament() {
+            showModal('🎮 Turnier Manager', `
+                <h3>Neues Turnier erstellen</h3>
+                <div class="leaderboard">
+                    <p><strong>📅 Datum & Zeit</strong><br>
+                    <input type="datetime-local" style="width:100%; padding:10px; border-radius:5px; background:rgba(0,0,0,0.3); color:var(--text-primary); border:1px solid var(--accent-cyan);"></p>
+                    
+                    <p><strong>🎮 Spielmodus</strong><br>
+                    <select style="width:100%; padding:10px; border-radius:5px; background:rgba(0,0,0,0.3); color:var(--text-primary); border:1px solid var(--accent-cyan);">
+                        <option>⚡ Blitz (3+2)</option>
+                        <option>🚀 Rapid (10+5)</option>
+                        <option>👑 Classical (30+30)</option>
+                        <option>💨 Bullet (1+0)</option>
+                    </select></p>
+                    
+                    <p><strong>👥 Max. Teilnehmer</strong><br>
+                    <select style="width:100%; padding:10px; border-radius:5px; background:rgba(0,0,0,0.3); color:var(--text-primary); border:1px solid var(--accent-cyan);">
+                        <option>8 Spieler</option>
+                        <option>16 Spieler</option>
+                        <option>32 Spieler</option>
+                        <option>64 Spieler</option>
+                    </select></p>
+                    
+                    <p><strong>🏆 Preise</strong><br>
+                    <input type="text" placeholder="z.B. 1000 Punkte, Abzeichen, Titel" style="width:100%; padding:10px; border-radius:5px; background:rgba(0,0,0,0.3); color:var(--text-primary); border:1px solid var(--accent-cyan);"></p>
+                </div>
+                <br>
+                <button class="btn" onclick="showToast('🎉 Turnier erfolgreich erstellt!'); closeModal();">Turnier erstellen</button>
+                <button class="btn btn-secondary" onclick="closeModal()">Abbrechen</button>
+            `);
+        }
+
+        function showVideos() {
+            showModal('📹 Master Class Videos', `
+                <h3>Exklusive Großmeister-Lektionen</h3>
+                <div class="leaderboard">
+                    <div class="leaderboard-item">
+                        <span>▶️</span>
+                        <span><strong>"Endspiel-Meisterschaft"</strong><br>GM Magnus Carlsen · 2h 15min</span>
+                        <button class="btn">Ansehen</button>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span>▶️</span>
+                        <span><strong>"Sizilianische Najdorf Tiefenanalyse"</strong><br>GM Garry Kasparov · 1h 45min</span>
+                        <button class="btn">Ansehen</button>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span>▶️</span>
+                        <span><strong>"Psychologie im Schach"</strong><br>GM Hikaru Nakamura · 58min</span>
+                        <button class="btn">Ansehen</button>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span>▶️</span>
+                        <span><strong>"Blitz Strategien 2024"</strong><br>GM Daniel Naroditsky · 1h 22min</span>
+                        <button class="btn">Ansehen</button>
+                    </div>
+                </div>
+            `);
+        }
+
+        function showBooks() {
+            showModal('📖 Digital Library - 500+ Bücher', `
+                <h3>Empfohlene Schachliteratur</h3>
+                <div class="leaderboard">
+                    <p>📚 <strong>"My 60 Memorable Games"</strong> - Bobby Fischer<br><em>Klassiker der Schachliteratur</em></p>
+                    <p>📚 <strong>"Dvoretsky's Endgame Manual"</strong> - Mark Dvoretsky<br><em>Die Bibel des Endspiels</em></p>
+                    <p>📚 <strong>"The Art of Attack in Chess"</strong> - Vladimir Vukovic<br><em>Meisterhafte Angriffsführung</em></p>
+                    <p>📚 <strong>"Fundamental Chess Endings"</strong> - Karsten Müller<br><em>Komplettes Endspiel-Kompendium</em></p>
+                    <p>📚 <strong>"Zurich 1953"</strong> - David Bronstein<br><em>Analyse historischer Partien</em></p>
+                </div>
+                <button class="btn" onclick="closeModal()">Zur Bibliothek</button>
+            `);
+        }
+
+        function showDailyExercise() {
+            showModal('💪 Daily Training - Personalisiert', `
+                <h3>Dein Trainingsplan für heute</h3>
+                <div class="leaderboard">
+                    <div class="leaderboard-item">
+                        <span>✅</span>
+                        <span><strong>Taktik-Rätsel</strong><br>10 Aufgaben (1600-1800 ELO)</span>
+                        <button class="btn">Start</button>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span>⏳</span>
+                        <span><strong>Eröffnungs-Training</strong><br>Sizilianisch Najdorf Review</span>
+                        <button class="btn">Start</button>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span>📊</span>
+                        <span><strong>Partieanalyse</strong><br>Analysiere deine letzte Niederlage</span>
+                        <button class="btn">Start</button>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span>🎯</span>
+                        <span><strong>Endspiel-Drill</strong><br>Turm-Endspiele Basics</span>
+                        <button class="btn">Start</button>
+                    </div>
+                </div>
+                <p style="text-align:center; margin-top:20px;"><em>💎 Tägliches Training erhöht dein ELO um durchschnittlich 150 Punkte pro Jahr!</em></p>
+            `);
+        }
+
+        function showAnalysis() {
+            showModal('📊 KI Game Analysis', `
+                <h3>Letzte Partie analysieren</h3>
+                <div class="leaderboard">
+                    <p>🤖 <strong>Quantum Chess Engine 5.0</strong> analysiert deine Partien mit 3200+ ELO Stärke</p>
+                    <p>📈 <strong>Fehleranalyse:</strong> Identifiziert Fehler und verpasste Chancen</p>
+                    <p>💡 <strong>Verbesserungsvorschläge:</strong> Konkrete Tipps für bessere Züge</p>
+                    <p>🎯 <strong>Schwachstellen:</strong> Zeigt Muster in deinen Fehlern</p>
+                    <p>⭐ <strong>Genauigkeit:</strong> Berechnet deine Spielstärke pro Partie</p>
+                </div>
+                <br>
+                <button class="btn" onclick="showToast('🔍 Analyse gestartet... Ergebnisse in 30 Sekunden!')">Letzte Partie analysieren</button>
+            `);
+        }
+
+        function showCoaching() {
+            showModal('👨‍🏫 Personal Coaching', `
+                <h3>1-on-1 Training mit Profis</h3>
+                <div class="leaderboard">
+                    <div class="leaderboard-item">
+                        <span>👑</span>
+                        <span><strong>GM Magnus (2882 ELO)</strong><br>$150/Stunde · 5★★★★★</span>
+                        <button class="btn btn-secondary">Ausgebucht</button>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span>👨‍🏫</span>
+                        <span><strong>IM Sarah (2456 ELO)</strong><br>$50/Stunde · 4.9★★★★★</span>
+                        <button class="btn">Buchen</button>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span>🎓</span>
+                        <span><strong>FM David (2301 ELO)</strong><br>$30/Stunde · 4.8★★★★★</span>
+                        <button class="btn">Buchen</button>
+                    </div>
+                    <div class="leaderboard-item">
+                        <span>⭐</span>
+                        <span><strong>Coach Alex (2150 ELO)</strong><br>$20/Stunde · 4.7★★★★★</span>
+                        <button class="btn">Buchen</button>
+                    </div>
+                </div>
+            `);
+        }
+
+        function openExternalResource(site) {
+            const urls = {
+                'chess.com': 'https://www.chess.com/de',
+                'lichess': 'https://lichess.org'
+            };
+            if (urls[site]) {
+                showToast('🌐 Öffne externe Plattform...');
+                setTimeout(() => window.open(urls[site], '_blank'), 1000);
+            }
+        }
+
+        function updateStats() {
+            // Simulate stat updates
+            if (Math.random() > 0.5) {
+                playerStats.wins++;
+                playerStats.elo += Math.floor(Math.random() * 20) + 5;
+            }
+            // Update stat display
+            document.querySelectorAll('.stat-value')[0].textContent = playerStats.elo;
+            document.querySelectorAll('.stat-value')[1].textContent = playerStats.wins;
+        }
+
+        // ========== VISUAL EFFECTS ==========
         function setupMatrix() {
             const canvas = document.getElementById('matrix-bg');
             const ctx = canvas.getContext('2d');
@@ -489,16 +1549,16 @@
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
 
-            const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789äöüßÄÖÜ♔♕♖♗♘♙";
+            const characters = "♔♕♖♗♘♙♚♛♜♝♞♟ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             const fontSize = 14;
             const columns = canvas.width / fontSize;
             const drops = Array(Math.floor(columns)).fill(1);
 
             function draw() {
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                ctx.fillStyle = 'rgba(10, 14, 39, 0.05)';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-                ctx.fillStyle = '#0F0';
+                ctx.fillStyle = 'rgba(0, 240, 255, 0.8)';
                 ctx.font = fontSize + 'px monospace';
 
                 for (let i = 0; i < drops.length; i++) {
@@ -515,190 +1575,25 @@
             setInterval(draw, 33);
         }
 
-        // Fenster-Resize Handler
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // ========== EVENT LISTENERS ==========
         window.addEventListener('resize', function() {
             const canvas = document.getElementById('matrix-bg');
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         });
 
-        // Modal-Funktionen
-        function showModal(title, content) {
-            document.getElementById('modalTitle').textContent = title;
-            document.getElementById('modalBody').innerHTML = content;
-            document.getElementById('infoModal').style.display = 'block';
-        }
-
-        function closeModal() {
-            document.getElementById('infoModal').style.display = 'none';
-        }
-
-        // Lektion anzeigen
-        function showLesson(type) {
-            const lessons = {
-                'grundregeln': `
-                    <h3>Grundregeln des Schachs</h3>
-                    <p>• Das Schachbrett hat 64 Felder (8x8)</p>
-                    <p>• Jeder Spieler beginnt mit 16 Figuren</p>
-                    <p>• Weiß macht den ersten Zug</p>
-                    <p>• Ziel: Den gegnerischen König schachmatt setzen</p>
-                    <p>• Jede Figur bewegt sich unterschiedlich</p>
-                `,
-                'strategien': `
-                    <h3>Fortgeschrittene Strategien</h3>
-                    <p>• Kontrolliere das Zentrum des Bretts</p>
-                    <p>• Entwickle deine Figuren früh</p>
-                    <p>• Rochiere, um deinen König zu schützen</p>
-                    <p>• Plane mehrere Züge im Voraus</p>
-                    <p>• Achte auf Gabelungen und Spieße</p>
-                `,
-                'taktik': `
-                    <h3>Taktische Übungen</h3>
-                    <p>• Löse täglich Schachrätsel</p>
-                    <p>• Übe Mattsetzmuster</p>
-                    <p>• Lerne häufige Eröffnungen</p>
-                    <p>• Analysiere deine gespielten Partien</p>
-                    <p>• Spiele gegen den Computer</p>
-                `
-            };
-            showModal('Schach Lektion', lessons[type] || 'Lektion nicht gefunden');
-        }
-
-        // Tägliches Rätsel starten
-        function startDailyPuzzle() {
-            showModal('Tägliches Rätsel', `
-                <h3>Schachrätsel des Tages</h3>
-                <p>Matt in 2 Zügen - Finde die Lösung!</p>
-                <p style="text-align:center; font-size:40px; margin:20px 0;">
-                    ♖ _ _ _ ♚ _ _ _<br>
-                    _ _ _ _ _ ♟ _ _<br>
-                    _ _ _ _ _ _ _ _<br>
-                    _ _ _ ♕ _ _ _ _<br>
-                </p>
-                <p><em>Tipp: Nutze die Dame und den Turm zusammen!</em></p>
-            `);
-        }
-
-        // Turniere anzeigen
-        function showTournaments() {
-            showModal('Kommende Turniere', `
-                <h3>Aktuelle Turniere</h3>
-                <p>🏆 Wochenend-Blitzturnier - Samstag 14:00</p>
-                <p>🏆 Monatsmeisterschaft - 1. des Monats</p>
-                <p>🏆 Anfänger-Turnier - Jeden Sonntag 16:00</p>
-                <p>🏆 Großmeister-Challenge - Monatlich</p>
-                <br>
-                <button class="btn" onclick="closeModal()">Schließen</button>
-            `);
-        }
-
-        // Statistiken anzeigen
-        function showStats() {
-            showModal('Deine Statistiken', `
-                <h3>Spielerstatistik</h3>
-                <p>📊 Gespielte Partien: 47</p>
-                <p>✅ Siege: 28</p>
-                <p>❌ Niederlagen: 15</p>
-                <p>🤝 Remis: 4</p>
-                <p>⭐ Aktuelle ELO: 1450</p>
-                <p>🔥 Längste Siegesserie: 7 Spiele</p>
-            `);
-        }
-
-        // Forum anzeigen
-        function showForum() {
-            showModal('Diskussionsforum', `
-                <h3>Neueste Beiträge</h3>
-                <p>💬 "Beste Eröffnung für Anfänger?" - 23 Antworten</p>
-                <p>💬 "Turnier-Ergebnisse besprechen" - 15 Antworten</p>
-                <p>💬 "Endspiel-Taktiken" - 31 Antworten</p>
-                <p>💬 "Suche Trainingspartner" - 8 Antworten</p>
-                <br>
-                <button class="btn" onclick="closeModal()">Schließen</button>
-            `);
-        }
-
-        // Spieler anzeigen
-        function showPlayers() {
-            showModal('Online Spieler', `
-                <h3>Aktuell online (12 Spieler)</h3>
-                <p>👤 SchachMeister2000 (ELO: 1850)</p>
-                <p>👤 TaktikProfi (ELO: 1720)</p>
-                <p>👤 Anfänger123 (ELO: 1200)</p>
-                <p>👤 StrategieKing (ELO: 1650)</p>
-                <p>👤 BlitzQueen (ELO: 1580)</p>
-                <br>
-                <button class="btn" onclick="closeModal()">Schließen</button>
-            `);
-        }
-
-        // Turnier erstellen
-        function createTournament() {
-            showModal('Turnier erstellen', `
-                <h3>Neues Turnier organisieren</h3>
-                <p>📅 Datum wählen</p>
-                <p>⏰ Uhrzeit festlegen</p>
-                <p>🎮 Spielmodus: Blitz / Rapid / Classical</p>
-                <p>👥 Max. Teilnehmer: 8 / 16 / 32</p>
-                <p>🏆 Preise: Punkte / Abzeichen / Titel</p>
-                <br>
-                <button class="btn" onclick="alert('Turnier-Erstellung in Entwicklung!')">Erstellen</button>
-                <button class="btn" onclick="closeModal()">Abbrechen</button>
-            `);
-        }
-
-        // Videos anzeigen
-        function showVideos() {
-            showModal('Video-Tutorials', `
-                <h3>Empfohlene Schach-Videos</h3>
-                <p>📺 Schach für absolute Anfänger (15 min)</p>
-                <p>📺 Die 10 wichtigsten Eröffnungen (22 min)</p>
-                <p>📺 Taktische Motive erklärt (18 min)</p>
-                <p>📺 Endspiel-Grundlagen (25 min)</p>
-                <p>📺 Wie denkt ein Großmeister? (30 min)</p>
-            `);
-        }
-
-        // Bücher anzeigen
-        function showBooks() {
-            showModal('Digitale Schachbücher', `
-                <h3>Empfohlene Literatur</h3>
-                <p>📚 "Schach für Einsteiger" von Bobby Fischer</p>
-                <p>📚 "Meine 60 denkwürdigen Partien" von Bobby Fischer</p>
-                <p>📚 "Lehrbuch der Schachstrategie" von Mark Dworezki</p>
-                <p>📚 "1001 Schachaufgaben" - Taktiktraining</p>
-                <p>📚 "Das Endspiel" von Siegbert Tarrasch</p>
-            `);
-        }
-
-        // Tägliche Übung anzeigen
-        function showDailyExercise() {
-            showModal('Tägliche Übung', `
-                <h3>Übung des Tages</h3>
-                <p>🎯 Finde die beste Fortsetzung:</p>
-                <p style="text-align:center; font-size:30px; margin:15px 0;">
-                    ♜ _ ♝ ♛ _ ♜ ♚ _<br>
-                    ♟ ♟ _ _ ♟ ♟ _ ♟<br>
-                    _ _ ♟ _ _ ♞ ♟ _<br>
-                    _ _ _ ♟ _ _ _ _<br>
-                </p>
-                <p>Weiß am Zug - Was ist der stärkste Zug?</p>
-                <button class="btn" onclick="alert('Lösung: Dame nach h7! Matt in 2 Zügen.')">Lösung anzeigen</button>
-            `);
-        }
-
-        // Externe Ressource öffnen
-        function openExternalResource(site) {
-            const urls = {
-                'chess.com': 'https://www.chess.com/de',
-                'lichess': 'https://lichess.org'
-            };
-            if (urls[site]) {
-                window.open(urls[site], '_blank');
-            }
-        }
-
-        // Modal schließen beim Klick außerhalb
         window.onclick = function(event) {
             const modal = document.getElementById('infoModal');
             if (event.target == modal) {
@@ -706,11 +1601,26 @@
             }
         }
 
-        // Initialisierung beim Laden der Seite
+        // ========== INITIALIZATION ==========
         window.onload = function() {
             initializeBoard();
             setupMatrix();
-            setStatus('Willkommen! Weiß beginnt.');
+            createParticles();
+            setStatus('⚡ System bereit - Wähle Weiß für den ersten Zug');
+            showToast('🎮 Willkommen in der Quantum Chess Academy!');
+            
+            // Easter egg: Konami code
+            let konamiCode = [];
+            const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+            document.addEventListener('keydown', function(e) {
+                konamiCode.push(e.key);
+                konamiCode = konamiCode.slice(-10);
+                if (konamiCode.join(',') === konamiSequence.join(',')) {
+                    showToast('🎉 CHEAT CODE AKTIVIERT! +100 ELO');
+                    playerStats.elo += 100;
+                    updateStats();
+                }
+            });
         };
     </script>
 </body>
