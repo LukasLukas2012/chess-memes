@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html dir="rtl" lang="ar">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>النادي العربي للشطرنج - النسخة المظلمة</title>
+    <title>Deutscher Schachclub - Dark Edition</title>
     <style>
         :root {
             --primary-color: #0a0a0a;
@@ -175,45 +175,45 @@
     <canvas id="matrix-bg"></canvas>
     <div class="container">
         <header>
-            <h1>النادي العربي للشطرنج</h1>
-            <p>مرحباً بكم في منصة تعلم وممارسة الشطرنج</p>
+            <h1>Deutscher Schachclub</h1>
+            <p>Willkommen auf unserer Plattform zum Schach lernen und spielen</p>
         </header>
 
         <div class="features-grid">
             <div class="feature-card">
-                <h3>تعلم الشطرنج</h3>
-                <p>دروس تفاعلية للمبتدئين والمتقدمين</p>
+                <h3>Schach lernen</h3>
+                <p>Interaktive Lektionen für Anfänger und Fortgeschrittene</p>
                 <ul>
-                    <li><a href="https://www.youtube.com/playlist?list=PLLALQuK1NDriznhy4WQzRJQiPqNRZZWHp" target="_blank">تعلم القواعد الأساسية</a></li>
-                    <li><a href="https://lichess.org/learn#/" target="_blank">استراتيجيات متقدمة</a></li>
-                    <li><a href="https://lichess.org/training" target="_blank">تمارين تكتيكية</a></li>
+                    <li><a href="https://www.youtube.com/playlist?list=PLLALQuK1NDriznhy4WQzRJQiPqNRZZWHp" target="_blank">Grundregeln lernen</a></li>
+                    <li><a href="https://lichess.org/learn#/" target="_blank">Fortgeschrittene Strategien</a></li>
+                    <li><a href="https://lichess.org/training" target="_blank">Taktikübungen</a></li>
                 </ul>
             </div>
 
             <div class="feature-card">
-                <h3>تحديات يومية</h3>
-                <p>حل المشكلات وتحسين مستواك</p>
+                <h3>Tägliche Herausforderungen</h3>
+                <p>Löse Aufgaben und verbessere dein Level</p>
                 <ul>
-                    <li><a href="https://lichess.org/training/daily" target="_blank">مسائل شطرنج يومية</a></li>
-                    <li><a href="https://lichess.org/tournament" target="_blank">مباريات مع اللاعبين</a></li>
-                    <li><a href="https://lichess.org/tournament/weekly" target="_blank">بطولات أسبوعية</a></li>
+                    <li><a href="https://lichess.org/training/daily" target="_blank">Tägliche Schachaufgaben</a></li>
+                    <li><a href="https://lichess.org/tournament" target="_blank">Partien gegen Spieler</a></li>
+                    <li><a href="https://lichess.org/tournament/weekly" target="_blank">Wöchentliche Turniere</a></li>
                 </ul>
             </div>
 
             <div class="feature-card">
-                <h3>مجتمع النادي</h3>
-                <p>تواصل مع لاعبين آخرين</p>
+                <h3>Club-Community</h3>
+                <p>Vernetze dich mit anderen Spielern</p>
                 <ul>
-                    <li><a href="https://lichess.org/forum" target="_blank">منتدى للنقاش</a></li>
-                    <li><a href="https://www.chess.com/ar/forum" target="_blank">مشاركة الخبرات</a></li>
-                    <li><a href="https://lichess.org/team" target="_blank">تنظيم البطولات</a></li>
+                    <li><a href="https://lichess.org/forum" target="_blank">Diskussionsforum</a></li>
+                    <li><a href="https://www.chess.com/de/forum" target="_blank">Erfahrungsaustausch</a></li>
+                    <li><a href="https://lichess.org/team" target="_blank">Turniere organisieren</a></li>
                 </ul>
             </div>
         </div>
 
         <div class="chessboard">
             <script>
-                // إنشاء رقعة الشطرنج
+                // Schachbrett erstellen
                 function createBoard() {
                     const board = document.querySelector('.chessboard');
                     const pieces = {
@@ -237,7 +237,7 @@
                     }
                 }
 
-                // Matrix Rain Effect
+                // Matrix Rain Effekt
                 function setupMatrix() {
                     const canvas = document.getElementById('matrix-bg');
                     const ctx = canvas.getContext('2d');
@@ -245,7 +245,7 @@
                     canvas.width = window.innerWidth;
                     canvas.height = window.innerHeight;
 
-                    const characters = "أبجدهوزحطيكلمنسعفصقرشتثخذضظغ0123456789";
+                    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789äöüßÄÖÜ";
                     const fontSize = 14;
                     const columns = canvas.width / fontSize;
                     const drops = Array(Math.floor(columns)).fill(1);
@@ -271,7 +271,7 @@
                     setInterval(draw, 33);
                 }
                 
-                // تنفيذ الدوال عند تحميل الصفحة
+                // Funktionen beim Laden der Seite ausführen
                 window.onload = () => {
                     createBoard();
                     setupMatrix();
@@ -280,16 +280,16 @@
         </div>
 
         <div class="chess-resources">
-            <h2>مصادر تعليمية</h2>
+            <h2>Lernmaterialien</h2>
             <ul>
                 <li>
-                    <a href="https://www.chess.com/club/lndy-l-rby-llshtrnj-the-great-chess-club" class="btn">
-                        زيارة النادي على Chess.com
+                    <a href="https://www.chess.com/de/club" class="btn">
+                        Besuche den Club auf Chess.com
                     </a>
                 </li>
-                <li><a href="https://www.youtube.com/@ChessAcademy/playlists" target="_blank">دروس فيديو أساسية</a></li>
-                <li><a href="https://www.chess.com/ar/books" target="_blank">كتب شطرنج إلكترونية</a></li>
-                <li><a href="https://lichess.org/practice" target="_blank">تمارين تكتيكية يومية</a></li>
+                <li><a href="https://www.youtube.com/@ChessAcademy/playlists" target="_blank">Video-Tutorials für Anfänger</a></li>
+                <li><a href="https://www.chess.com/de/books" target="_blank">Digitale Schachbücher</a></li>
+                <li><a href="https://lichess.org/practice" target="_blank">Tägliche Taktikübungen</a></li>
             </ul>
         </div>
     </div>
