@@ -211,73 +211,7 @@
             </div>
         </div>
 
-        <div class="chessboard">
-            <script>
-                // Schachbrett erstellen
-                function createBoard() {
-                    const board = document.querySelector('.chessboard');
-                    const pieces = {
-                        0: '♜♞♝♛♚♝♞♜',
-                        1: '♟♟♟♟♟♟♟♟',
-                        6: '♙♙♙♙♙♙♙♙',
-                        7: '♖♘♗♕♔♗♘♖'
-                    };
-                    
-                    for (let i = 0; i < 8; i++) {
-                        for (let j = 0; j < 8; j++) {
-                            const square = document.createElement('div');
-                            square.className = `square ${(i + j) % 2 ? 'black' : 'white'}`;
-                            
-                            if (pieces[i]) {
-                                square.textContent = pieces[i][j];
-                            }
-                            
-                            board.appendChild(square);
-                        }
-                    }
-                }
-
-                // Matrix Rain Effekt
-                function setupMatrix() {
-                    const canvas = document.getElementById('matrix-bg');
-                    const ctx = canvas.getContext('2d');
-
-                    canvas.width = window.innerWidth;
-                    canvas.height = window.innerHeight;
-
-                    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789äöüßÄÖÜ";
-                    const fontSize = 14;
-                    const columns = canvas.width / fontSize;
-                    const drops = Array(Math.floor(columns)).fill(1);
-
-                    function draw() {
-                        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-                        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                        ctx.fillStyle = '#0F0';
-                        ctx.font = fontSize + 'px monospace';
-
-                        for (let i = 0; i < drops.length; i++) {
-                            const text = characters[Math.floor(Math.random() * characters.length)];
-                            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-                            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                                drops[i] = 0;
-                            }
-                            drops[i]++;
-                        }
-                    }
-
-                    setInterval(draw, 33);
-                }
-                
-                // Funktionen beim Laden der Seite ausführen
-                window.onload = () => {
-                    createBoard();
-                    setupMatrix();
-                };
-            </script>
-        </div>
+        <div class="chessboard"></div>
 
         <div class="chess-resources">
             <h2>Lernmaterialien</h2>
@@ -293,5 +227,78 @@
             </ul>
         </div>
     </div>
+
+    <script>
+        // Schachbrett erstellen
+        function createBoard() {
+            const board = document.querySelector('.chessboard');
+            const pieces = {
+                0: '♜♞♝♛♚♝♞♜',
+                1: '♟♟♟♟♟♟♟♟',
+                6: '♙♙♙♙♙♙♙♙',
+                7: '♖♘♗♕♔♗♘♖'
+            };
+            
+            for (let i = 0; i < 8; i++) {
+                for (let j = 0; j < 8; j++) {
+                    const square = document.createElement('div');
+                    square.className = `square ${(i + j) % 2 ? 'black' : 'white'}`;
+                    
+                    if (pieces[i]) {
+                        square.textContent = pieces[i][j];
+                    }
+                    
+                    board.appendChild(square);
+                }
+            }
+        }
+
+        // Matrix Rain Effekt
+        function setupMatrix() {
+            const canvas = document.getElementById('matrix-bg');
+            const ctx = canvas.getContext('2d');
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789äöüßÄÖÜ";
+            const fontSize = 14;
+            const columns = canvas.width / fontSize;
+            const drops = Array(Math.floor(columns)).fill(1);
+
+            function draw() {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                ctx.fillStyle = '#0F0';
+                ctx.font = fontSize + 'px monospace';
+
+                for (let i = 0; i < drops.length; i++) {
+                    const text = characters[Math.floor(Math.random() * characters.length)];
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }
+
+            setInterval(draw, 33);
+        }
+
+        // Fenster-Resize Handler für Matrix
+        window.addEventListener('resize', function() {
+            const canvas = document.getElementById('matrix-bg');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+        
+        // Funktionen beim Laden der Seite ausführen
+        window.onload = function() {
+            createBoard();
+            setupMatrix();
+        };
+    </script>
 </body>
 </html>
