@@ -79,10 +79,38 @@
             box-shadow: 0 0 15px var(--accent-color);
         }
 
+        .feature-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            margin-bottom: 15px;
+            opacity: 0.8;
+        }
+
+        .feature-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-card ul li {
+            margin: 8px 0;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .feature-card ul li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+
         .feature-card a {
             color: var(--text-color);
             text-decoration: none;
             transition: color 0.3s ease;
+            cursor: pointer;
         }
 
         .feature-card a:hover {
@@ -90,10 +118,16 @@
             text-shadow: 0 0 5px var(--hover-color);
         }
 
+        .chessboard-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2rem 0;
+        }
+
         .chessboard {
             width: 100%;
             max-width: 400px;
-            margin: 2rem auto;
             display: grid;
             grid-template-columns: repeat(8, 1fr);
             border: 2px solid var(--accent-color);
@@ -108,6 +142,12 @@
             font-size: 24px;
             color: var(--accent-color);
             text-shadow: 0 0 5px var(--accent-color);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .square:hover {
+            background-color: rgba(0, 255, 0, 0.1) !important;
         }
 
         .white {
@@ -116,6 +156,10 @@
 
         .black {
             background-color: #000000;
+        }
+
+        .selected {
+            background-color: rgba(0, 255, 0, 0.3) !important;
         }
 
         .btn {
@@ -145,6 +189,10 @@
             box-shadow: 0 0 10px var(--accent-color);
         }
 
+        .chess-resources h2 {
+            margin-bottom: 15px;
+        }
+
         .chess-resources ul {
             list-style-type: none;
             padding: 0;
@@ -169,6 +217,57 @@
             text-shadow: 0 0 5px var(--hover-color);
         }
 
+        .game-controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .game-controls button {
+            margin: 0 10px;
+        }
+
+        .status-message {
+            text-align: center;
+            margin: 15px 0;
+            font-size: 18px;
+            min-height: 25px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        .modal-content {
+            background-color: var(--secondary-color);
+            margin: 15% auto;
+            padding: 20px;
+            border: 2px solid var(--accent-color);
+            border-radius: 10px;
+            width: 80%;
+            max-width: 500px;
+            box-shadow: 0 0 20px var(--accent-color);
+        }
+
+        .close {
+            color: var(--text-color);
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: var(--hover-color);
+        }
+
     </style>
 </head>
 <body>
@@ -184,9 +283,9 @@
                 <h3>Schach lernen</h3>
                 <p>Interaktive Lektionen für Anfänger und Fortgeschrittene</p>
                 <ul>
-                    <li><a href="https://www.youtube.com/playlist?list=PLLALQuK1NDriznhy4WQzRJQiPqNRZZWHp" target="_blank">Grundregeln lernen</a></li>
-                    <li><a href="https://lichess.org/learn#/" target="_blank">Fortgeschrittene Strategien</a></li>
-                    <li><a href="https://lichess.org/training" target="_blank">Taktikübungen</a></li>
+                    <li><a onclick="showLesson('grundregeln')">Grundregeln lernen</a></li>
+                    <li><a onclick="showLesson('strategien')">Fortgeschrittene Strategien</a></li>
+                    <li><a onclick="showLesson('taktik')">Taktikübungen</a></li>
                 </ul>
             </div>
 
@@ -194,9 +293,9 @@
                 <h3>Tägliche Herausforderungen</h3>
                 <p>Löse Aufgaben und verbessere dein Level</p>
                 <ul>
-                    <li><a href="https://lichess.org/training/daily" target="_blank">Tägliche Schachaufgaben</a></li>
-                    <li><a href="https://lichess.org/tournament" target="_blank">Partien gegen Spieler</a></li>
-                    <li><a href="https://lichess.org/tournament/weekly" target="_blank">Wöchentliche Turniere</a></li>
+                    <li><a onclick="startDailyPuzzle()">Tägliche Schachaufgabe</a></li>
+                    <li><a onclick="showTournaments()">Turniere anzeigen</a></li>
+                    <li><a onclick="showStats()">Deine Statistiken</a></li>
                 </ul>
             </div>
 
@@ -204,53 +303,182 @@
                 <h3>Club-Community</h3>
                 <p>Vernetze dich mit anderen Spielern</p>
                 <ul>
-                    <li><a href="https://lichess.org/forum" target="_blank">Diskussionsforum</a></li>
-                    <li><a href="https://www.chess.com/de/forum" target="_blank">Erfahrungsaustausch</a></li>
-                    <li><a href="https://lichess.org/team" target="_blank">Turniere organisieren</a></li>
+                    <li><a onclick="showForum()">Diskussionsforum</a></li>
+                    <li><a onclick="showPlayers()">Spieler anzeigen</a></li>
+                    <li><a onclick="createTournament()">Turnier erstellen</a></li>
                 </ul>
             </div>
         </div>
 
-        <div class="chessboard"></div>
+        <div class="status-message" id="statusMessage"></div>
+
+        <div class="game-controls">
+            <button class="btn" onclick="resetBoard()">Neues Spiel</button>
+            <button class="btn" onclick="undoMove()">Zug zurück</button>
+            <button class="btn" onclick="rotateBoard()">Brett drehen</button>
+        </div>
+
+        <div class="chessboard-container">
+            <div class="chessboard" id="chessboard"></div>
+        </div>
 
         <div class="chess-resources">
             <h2>Lernmaterialien</h2>
             <ul>
                 <li>
-                    <a href="https://www.chess.com/de/club" class="btn">
-                        Besuche den Club auf Chess.com
+                    <a class="btn" onclick="openExternalResource('chess.com')">
+                        Besuche Chess.com
                     </a>
                 </li>
-                <li><a href="https://www.youtube.com/@ChessAcademy/playlists" target="_blank">Video-Tutorials für Anfänger</a></li>
-                <li><a href="https://www.chess.com/de/books" target="_blank">Digitale Schachbücher</a></li>
-                <li><a href="https://lichess.org/practice" target="_blank">Tägliche Taktikübungen</a></li>
+                <li><a onclick="showVideos()">Video-Tutorials für Anfänger</a></li>
+                <li><a onclick="showBooks()">Digitale Schachbücher</a></li>
+                <li><a onclick="showDailyExercise()">Tägliche Taktikübungen</a></li>
             </ul>
         </div>
     </div>
 
+    <!-- Modal -->
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">Information</h2>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
     <script>
-        // Schachbrett erstellen
-        function createBoard() {
-            const board = document.querySelector('.chessboard');
-            const pieces = {
-                0: '♜♞♝♛♚♝♞♜',
-                1: '♟♟♟♟♟♟♟♟',
-                6: '♙♙♙♙♙♙♙♙',
-                7: '♖♘♗♕♔♗♘♖'
-            };
+        // Globale Variablen
+        let gameBoard = [];
+        let selectedSquare = null;
+        let moveHistory = [];
+        let isWhiteTurn = true;
+        let boardRotated = false;
+
+        // Schachbrett initialisieren
+        function initializeBoard() {
+            gameBoard = [
+                ['♜','♞','♝','♛','♚','♝','♞','♜'],
+                ['♟','♟','♟','♟','♟','♟','♟','♟'],
+                ['','','','','','','',''],
+                ['','','','','','','',''],
+                ['','','','','','','',''],
+                ['','','','','','','',''],
+                ['♙','♙','♙','♙','♙','♙','♙','♙'],
+                ['♖','♘','♗','♕','♔','♗','♘','♖']
+            ];
+            renderBoard();
+        }
+
+        // Brett rendern
+        function renderBoard() {
+            const board = document.getElementById('chessboard');
+            board.innerHTML = '';
+            
+            const displayBoard = boardRotated ? [...gameBoard].reverse() : gameBoard;
             
             for (let i = 0; i < 8; i++) {
                 for (let j = 0; j < 8; j++) {
                     const square = document.createElement('div');
-                    square.className = `square ${(i + j) % 2 ? 'black' : 'white'}`;
+                    const actualI = boardRotated ? 7 - i : i;
+                    const actualJ = boardRotated ? 7 - j : j;
                     
-                    if (pieces[i]) {
-                        square.textContent = pieces[i][j];
-                    }
+                    square.className = `square ${(i + j) % 2 ? 'black' : 'white'}`;
+                    square.textContent = displayBoard[i][j];
+                    square.dataset.row = actualI;
+                    square.dataset.col = actualJ;
+                    square.onclick = () => handleSquareClick(actualI, actualJ);
                     
                     board.appendChild(square);
                 }
             }
+        }
+
+        // Feldklick behandeln
+        function handleSquareClick(row, col) {
+            if (selectedSquare === null) {
+                if (gameBoard[row][col] !== '') {
+                    selectedSquare = {row, col};
+                    highlightSquare(row, col);
+                    setStatus(`Figur ausgewählt. Wähle Zielfeld.`);
+                }
+            } else {
+                if (selectedSquare.row === row && selectedSquare.col === col) {
+                    selectedSquare = null;
+                    renderBoard();
+                    setStatus('');
+                } else {
+                    movePiece(selectedSquare.row, selectedSquare.col, row, col);
+                    selectedSquare = null;
+                }
+            }
+        }
+
+        // Feld hervorheben
+        function highlightSquare(row, col) {
+            const squares = document.querySelectorAll('.square');
+            squares.forEach(sq => {
+                if (parseInt(sq.dataset.row) === row && parseInt(sq.dataset.col) === col) {
+                    sq.classList.add('selected');
+                }
+            });
+        }
+
+        // Figur bewegen
+        function movePiece(fromRow, fromCol, toRow, toCol) {
+            const piece = gameBoard[fromRow][fromCol];
+            
+            moveHistory.push({
+                from: {row: fromRow, col: fromCol},
+                to: {row: toRow, col: toCol},
+                piece: piece,
+                captured: gameBoard[toRow][toCol]
+            });
+            
+            gameBoard[toRow][toCol] = piece;
+            gameBoard[fromRow][fromCol] = '';
+            
+            isWhiteTurn = !isWhiteTurn;
+            renderBoard();
+            setStatus(`${isWhiteTurn ? 'Weiß' : 'Schwarz'} ist am Zug`);
+        }
+
+        // Zug rückgängig machen
+        function undoMove() {
+            if (moveHistory.length === 0) {
+                setStatus('Keine Züge zum Rückgängigmachen!');
+                return;
+            }
+            
+            const lastMove = moveHistory.pop();
+            gameBoard[lastMove.from.row][lastMove.from.col] = lastMove.piece;
+            gameBoard[lastMove.to.row][lastMove.to.col] = lastMove.captured;
+            
+            isWhiteTurn = !isWhiteTurn;
+            renderBoard();
+            setStatus('Zug rückgängig gemacht');
+        }
+
+        // Brett zurücksetzen
+        function resetBoard() {
+            if (confirm('Möchtest du wirklich ein neues Spiel starten?')) {
+                moveHistory = [];
+                selectedSquare = null;
+                isWhiteTurn = true;
+                initializeBoard();
+                setStatus('Neues Spiel gestartet! Weiß beginnt.');
+            }
+        }
+
+        // Brett drehen
+        function rotateBoard() {
+            boardRotated = !boardRotated;
+            renderBoard();
+            setStatus('Brett gedreht');
+        }
+
+        // Status-Nachricht setzen
+        function setStatus(message) {
+            document.getElementById('statusMessage').textContent = message;
         }
 
         // Matrix Rain Effekt
@@ -261,7 +489,7 @@
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
 
-            const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789äöüßÄÖÜ";
+            const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789äöüßÄÖÜ♔♕♖♗♘♙";
             const fontSize = 14;
             const columns = canvas.width / fontSize;
             const drops = Array(Math.floor(columns)).fill(1);
@@ -287,17 +515,202 @@
             setInterval(draw, 33);
         }
 
-        // Fenster-Resize Handler für Matrix
+        // Fenster-Resize Handler
         window.addEventListener('resize', function() {
             const canvas = document.getElementById('matrix-bg');
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         });
-        
-        // Funktionen beim Laden der Seite ausführen
+
+        // Modal-Funktionen
+        function showModal(title, content) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalBody').innerHTML = content;
+            document.getElementById('infoModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('infoModal').style.display = 'none';
+        }
+
+        // Lektion anzeigen
+        function showLesson(type) {
+            const lessons = {
+                'grundregeln': `
+                    <h3>Grundregeln des Schachs</h3>
+                    <p>• Das Schachbrett hat 64 Felder (8x8)</p>
+                    <p>• Jeder Spieler beginnt mit 16 Figuren</p>
+                    <p>• Weiß macht den ersten Zug</p>
+                    <p>• Ziel: Den gegnerischen König schachmatt setzen</p>
+                    <p>• Jede Figur bewegt sich unterschiedlich</p>
+                `,
+                'strategien': `
+                    <h3>Fortgeschrittene Strategien</h3>
+                    <p>• Kontrolliere das Zentrum des Bretts</p>
+                    <p>• Entwickle deine Figuren früh</p>
+                    <p>• Rochiere, um deinen König zu schützen</p>
+                    <p>• Plane mehrere Züge im Voraus</p>
+                    <p>• Achte auf Gabelungen und Spieße</p>
+                `,
+                'taktik': `
+                    <h3>Taktische Übungen</h3>
+                    <p>• Löse täglich Schachrätsel</p>
+                    <p>• Übe Mattsetzmuster</p>
+                    <p>• Lerne häufige Eröffnungen</p>
+                    <p>• Analysiere deine gespielten Partien</p>
+                    <p>• Spiele gegen den Computer</p>
+                `
+            };
+            showModal('Schach Lektion', lessons[type] || 'Lektion nicht gefunden');
+        }
+
+        // Tägliches Rätsel starten
+        function startDailyPuzzle() {
+            showModal('Tägliches Rätsel', `
+                <h3>Schachrätsel des Tages</h3>
+                <p>Matt in 2 Zügen - Finde die Lösung!</p>
+                <p style="text-align:center; font-size:40px; margin:20px 0;">
+                    ♖ _ _ _ ♚ _ _ _<br>
+                    _ _ _ _ _ ♟ _ _<br>
+                    _ _ _ _ _ _ _ _<br>
+                    _ _ _ ♕ _ _ _ _<br>
+                </p>
+                <p><em>Tipp: Nutze die Dame und den Turm zusammen!</em></p>
+            `);
+        }
+
+        // Turniere anzeigen
+        function showTournaments() {
+            showModal('Kommende Turniere', `
+                <h3>Aktuelle Turniere</h3>
+                <p>🏆 Wochenend-Blitzturnier - Samstag 14:00</p>
+                <p>🏆 Monatsmeisterschaft - 1. des Monats</p>
+                <p>🏆 Anfänger-Turnier - Jeden Sonntag 16:00</p>
+                <p>🏆 Großmeister-Challenge - Monatlich</p>
+                <br>
+                <button class="btn" onclick="closeModal()">Schließen</button>
+            `);
+        }
+
+        // Statistiken anzeigen
+        function showStats() {
+            showModal('Deine Statistiken', `
+                <h3>Spielerstatistik</h3>
+                <p>📊 Gespielte Partien: 47</p>
+                <p>✅ Siege: 28</p>
+                <p>❌ Niederlagen: 15</p>
+                <p>🤝 Remis: 4</p>
+                <p>⭐ Aktuelle ELO: 1450</p>
+                <p>🔥 Längste Siegesserie: 7 Spiele</p>
+            `);
+        }
+
+        // Forum anzeigen
+        function showForum() {
+            showModal('Diskussionsforum', `
+                <h3>Neueste Beiträge</h3>
+                <p>💬 "Beste Eröffnung für Anfänger?" - 23 Antworten</p>
+                <p>💬 "Turnier-Ergebnisse besprechen" - 15 Antworten</p>
+                <p>💬 "Endspiel-Taktiken" - 31 Antworten</p>
+                <p>💬 "Suche Trainingspartner" - 8 Antworten</p>
+                <br>
+                <button class="btn" onclick="closeModal()">Schließen</button>
+            `);
+        }
+
+        // Spieler anzeigen
+        function showPlayers() {
+            showModal('Online Spieler', `
+                <h3>Aktuell online (12 Spieler)</h3>
+                <p>👤 SchachMeister2000 (ELO: 1850)</p>
+                <p>👤 TaktikProfi (ELO: 1720)</p>
+                <p>👤 Anfänger123 (ELO: 1200)</p>
+                <p>👤 StrategieKing (ELO: 1650)</p>
+                <p>👤 BlitzQueen (ELO: 1580)</p>
+                <br>
+                <button class="btn" onclick="closeModal()">Schließen</button>
+            `);
+        }
+
+        // Turnier erstellen
+        function createTournament() {
+            showModal('Turnier erstellen', `
+                <h3>Neues Turnier organisieren</h3>
+                <p>📅 Datum wählen</p>
+                <p>⏰ Uhrzeit festlegen</p>
+                <p>🎮 Spielmodus: Blitz / Rapid / Classical</p>
+                <p>👥 Max. Teilnehmer: 8 / 16 / 32</p>
+                <p>🏆 Preise: Punkte / Abzeichen / Titel</p>
+                <br>
+                <button class="btn" onclick="alert('Turnier-Erstellung in Entwicklung!')">Erstellen</button>
+                <button class="btn" onclick="closeModal()">Abbrechen</button>
+            `);
+        }
+
+        // Videos anzeigen
+        function showVideos() {
+            showModal('Video-Tutorials', `
+                <h3>Empfohlene Schach-Videos</h3>
+                <p>📺 Schach für absolute Anfänger (15 min)</p>
+                <p>📺 Die 10 wichtigsten Eröffnungen (22 min)</p>
+                <p>📺 Taktische Motive erklärt (18 min)</p>
+                <p>📺 Endspiel-Grundlagen (25 min)</p>
+                <p>📺 Wie denkt ein Großmeister? (30 min)</p>
+            `);
+        }
+
+        // Bücher anzeigen
+        function showBooks() {
+            showModal('Digitale Schachbücher', `
+                <h3>Empfohlene Literatur</h3>
+                <p>📚 "Schach für Einsteiger" von Bobby Fischer</p>
+                <p>📚 "Meine 60 denkwürdigen Partien" von Bobby Fischer</p>
+                <p>📚 "Lehrbuch der Schachstrategie" von Mark Dworezki</p>
+                <p>📚 "1001 Schachaufgaben" - Taktiktraining</p>
+                <p>📚 "Das Endspiel" von Siegbert Tarrasch</p>
+            `);
+        }
+
+        // Tägliche Übung anzeigen
+        function showDailyExercise() {
+            showModal('Tägliche Übung', `
+                <h3>Übung des Tages</h3>
+                <p>🎯 Finde die beste Fortsetzung:</p>
+                <p style="text-align:center; font-size:30px; margin:15px 0;">
+                    ♜ _ ♝ ♛ _ ♜ ♚ _<br>
+                    ♟ ♟ _ _ ♟ ♟ _ ♟<br>
+                    _ _ ♟ _ _ ♞ ♟ _<br>
+                    _ _ _ ♟ _ _ _ _<br>
+                </p>
+                <p>Weiß am Zug - Was ist der stärkste Zug?</p>
+                <button class="btn" onclick="alert('Lösung: Dame nach h7! Matt in 2 Zügen.')">Lösung anzeigen</button>
+            `);
+        }
+
+        // Externe Ressource öffnen
+        function openExternalResource(site) {
+            const urls = {
+                'chess.com': 'https://www.chess.com/de',
+                'lichess': 'https://lichess.org'
+            };
+            if (urls[site]) {
+                window.open(urls[site], '_blank');
+            }
+        }
+
+        // Modal schließen beim Klick außerhalb
+        window.onclick = function(event) {
+            const modal = document.getElementById('infoModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Initialisierung beim Laden der Seite
         window.onload = function() {
-            createBoard();
+            initializeBoard();
             setupMatrix();
+            setStatus('Willkommen! Weiß beginnt.');
         };
     </script>
 </body>
